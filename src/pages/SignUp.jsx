@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import OAuth from "../components/OAuth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { Link, useNavigate } from "react-router-dom";
@@ -112,7 +113,7 @@ function SignUp() {
             </div>
           </form>
 
-          {/* Google OAuth */}
+          <OAuth />
 
           <Link to="/sign-in" className="registerLink">
             Sign In Instead
