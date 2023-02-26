@@ -61,25 +61,25 @@ function EditListing() {
   //   }
   // }, [navigate, listing, auth.currentUser.uid]);
 
-  // useEffect(() => {
-  //   setLoading(true);
+  useEffect(() => {
+    setLoading(true);
 
-  //   const fetchListing = async () => {
-  //     const docRef = doc(db, "listings", params.listingId);
-  //     const docSnap = await getDoc(docRef);
+    const fetchListing = async () => {
+      const docRef = doc(db, "listings", params.listingId);
+      const docSnap = await getDoc(docRef);
 
-  //     if (docSnap.exists()) {
-  //       setListing(docSnap.data());
-  //       setFormData({ ...docSnap.data(), address: docSnap.data().location });
-  //       setLoading(false);
-  //     } else {
-  //       navigate("/");
-  //       toast.error("Listing does not exist.");
-  //     }
-  //   };
+      if (docSnap.exists()) {
+        setListing(docSnap.data());
+        setFormData({ ...docSnap.data(), address: docSnap.data().location });
+        setLoading(false);
+      } else {
+        navigate("/");
+        toast.error("Listing does not exist.");
+      }
+    };
 
-  //   fetchListing();
-  // }, [navigate, params.listingId]);
+    fetchListing();
+  }, [navigate, params.listingId]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -346,7 +346,7 @@ function EditListing() {
             required
           />
 
-          <div className="formLatLng flex">
+          <div className="formLatLng">
             <div>
               <label className="formLabel">Latitude</label>
               <input
