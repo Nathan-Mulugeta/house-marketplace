@@ -12,10 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
-import { enableIndexedDbPersistence } from "firebase/firestore";
 
 function CreateListing() {
-  const [geolocationEnabled, setGeolocationEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: "rent",
@@ -89,11 +87,9 @@ function CreateListing() {
     }
 
     let geolocation = {};
-    let location;
 
     geolocation.lat = latitude;
     geolocation.lng = longitude;
-    location = address;
 
     // Store images in firebase
     const storeImage = async (image) => {
@@ -314,32 +310,32 @@ function CreateListing() {
             onChange={onMutate}
             required
           />
-          {!geolocationEnabled && (
-            <div className="formLatLng flex">
-              <div>
-                <label className="formLabel">Latitude</label>
-                <input
-                  className="formInputSmall"
-                  type="number"
-                  id="latitude"
-                  value={latitude}
-                  onChange={onMutate}
-                  required
-                />
-              </div>
-              <div>
-                <label className="formLabel">Longitude</label>
-                <input
-                  className="formInputSmall"
-                  type="number"
-                  id="longitude"
-                  value={longitude}
-                  onChange={onMutate}
-                  required
-                />
-              </div>
+
+          <div className="formLatLng flex">
+            <div>
+              <label className="formLabel">Latitude</label>
+              <input
+                className="formInputSmall"
+                type="number"
+                id="latitude"
+                value={latitude}
+                onChange={onMutate}
+                required
+              />
             </div>
-          )}
+            <div>
+              <label className="formLabel">Longitude</label>
+              <input
+                className="formInputSmall"
+                type="number"
+                id="longitude"
+                value={longitude}
+                onChange={onMutate}
+                required
+              />
+            </div>
+          </div>
+
           <label className="formLabel">Offer</label>
           <div className="formButtons">
             <button

@@ -14,7 +14,6 @@ import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 
 function EditListing() {
-  const [geolocationEnabled, setGeolocationEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [listing, setListing] = useState({});
   const [formData, setFormData] = useState({
@@ -60,7 +59,7 @@ function EditListing() {
       toast.error("You can not edit that listing");
       navigate("/");
     }
-  }, []);
+  }, [navigate, listing, auth.currentUser.uid]);
 
   useEffect(() => {
     setLoading(true);
@@ -80,7 +79,7 @@ function EditListing() {
     };
 
     fetchListing();
-  }, []);
+  }, [navigate, params.listingId]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -118,11 +117,11 @@ function EditListing() {
     }
 
     let geolocation = {};
-    let location;
+    // let location;
 
     geolocation.lat = latitude;
     geolocation.lng = longitude;
-    location = address;
+    // location = address;
 
     // Store images in firebase
     const storeImage = async (image) => {
@@ -346,32 +345,32 @@ function EditListing() {
             onChange={onMutate}
             required
           />
-          {!geolocationEnabled && (
-            <div className="formLatLng flex">
-              <div>
-                <label className="formLabel">Latitude</label>
-                <input
-                  className="formInputSmall"
-                  type="number"
-                  id="latitude"
-                  value={latitude}
-                  onChange={onMutate}
-                  required
-                />
-              </div>
-              <div>
-                <label className="formLabel">Longitude</label>
-                <input
-                  className="formInputSmall"
-                  type="number"
-                  id="longitude"
-                  value={longitude}
-                  onChange={onMutate}
-                  required
-                />
-              </div>
+
+          <div className="formLatLng flex">
+            <div>
+              <label className="formLabel">Latitude</label>
+              <input
+                className="formInputSmall"
+                type="number"
+                id="latitude"
+                value={latitude}
+                onChange={onMutate}
+                required
+              />
             </div>
-          )}
+            <div>
+              <label className="formLabel">Longitude</label>
+              <input
+                className="formInputSmall"
+                type="number"
+                id="longitude"
+                value={longitude}
+                onChange={onMutate}
+                required
+              />
+            </div>
+          </div>
+
           <label className="formLabel">Offer</label>
           <div className="formButtons">
             <button
