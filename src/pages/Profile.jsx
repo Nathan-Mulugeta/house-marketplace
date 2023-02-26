@@ -103,15 +103,14 @@ function Profile() {
     if (window.confirm("Are you sure you want to delete?")) {
       setLoading(true);
       await deleteDoc(doc(db, "listings", listingId));
+
+      setListings(listings.filter((listing) => listing.id !== listingId));
+      setLoading(false);
+      toast.success("Successfully deleted listing");
     }
-
-    // const updatedListings = listings.filter((listing)=>listings)
-
-    setListings(listings.filter((listing) => listing.id !== listingId));
-
-    setLoading(false);
-    toast.success("Successfully deleted listing");
   };
+
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
 
   return (
     <div className="profile">
@@ -175,6 +174,7 @@ function Profile() {
                   listing={listing.data}
                   id={listing.id}
                   onDelete={() => onDelete(listing.id)}
+                  onEdit={() => onEdit(listing.id)}
                 />
               ))}
             </ul>
